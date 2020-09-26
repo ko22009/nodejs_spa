@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "module": "esnext",
+    "target": "es2015",
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "~app/*": [
+        "src/*"
+      ],
+      "~common/*": [
+        "../common/*"
+      ]
+    }
+  }
+}
