@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const { DefinePlugin } = require('webpack')
+const { DefinePlugin, ProvidePlugin } = require('webpack')
 
 module.exports = {
     entry: './src/index.ts',
@@ -26,6 +26,12 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 loader: 'babel-loader',
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [{
+                        loader: 'file-loader'
+                    }]
             }
         ]
     },
@@ -45,6 +51,9 @@ module.exports = {
             process: {
                 env: JSON.stringify(require('dotenv').config().parsed)
             }
+        }),
+        new ProvidePlugin({
+            webix: 'webix'
         }),
     ],
 }

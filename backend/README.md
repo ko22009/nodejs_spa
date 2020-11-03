@@ -17,3 +17,8 @@ npm install
 ```
 node server.js
 ```
+
+### Create Aliases
+```
+npm run postinstall
+```

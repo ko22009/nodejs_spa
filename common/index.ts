@@ -1,1 +1,1 @@
-console.log(22)
+export const validator = require('validator');
