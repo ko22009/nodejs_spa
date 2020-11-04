@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "target": "es5",
+    "module": "commonjs",
+    "jsx": "react",
     "sourceMap": true,
-    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "removeComments": true,
     "noImplicitAny": true,
-    "module": "esnext",
-    "target": "es2015",
-    "allowJs": true,
-    "baseUrl": ".",
-    "lib": ["es2015", "dom"],
-    "paths": {
-      "~app/*": [
-        "src/*"
-      ],
-      "~common/*": [
-        "../common/*"
-      ]
-    }
-  }
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "preserveConstEnums": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "dom",
+      "es5",
+      "es6"
+    ]
+  },
+  "include": [
+    "./src/**/*"
+  ]
 }

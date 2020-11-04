@@ -1,59 +1,44 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const { DefinePlugin, ProvidePlugin } = require('webpack')
+const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.ts',
-    output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist')
+    entry: {
+        app: ['./src/app.ts'],
+        vendor: ['react', 'react-dom']
     },
-    devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './dist',
-        hot: true,
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'js/[name].bundle.js'
+    },
+    devtool: "source-map",
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
     },
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader"
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.s[ac]ss$/i,
                 use: [
                     'style-loader',
-                    'css-loader'
-                ]
-            },
-            {
-                test: /\.tsx?$/,
-                loader: 'babel-loader',
-            },
-            {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                use: [{
-                        loader: 'file-loader'
-                    }]
+                    'css-loader',
+                    'sass-loader',
+                ],
             }
         ]
     },
-    resolve: {
-        alias: {
-            '~app': path.resolve(__dirname, "src/"),
-            '~common': path.resolve(__dirname, "../common/")
-        },
-        extensions: [ '.tsx', '.ts', '.js' ],
-    },
+
     plugins: [
-        new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
-        new HtmlWebpackPlugin({
-            title: 'Output Management',
-        }),
-        new DefinePlugin({
-            process: {
-                env: JSON.stringify(require('dotenv').config().parsed)
-            }
-        }),
-        new ProvidePlugin({
-            webix: 'webix'
-        }),
-    ],
-}
+        new HtmlWebPackPlugin({
+            template: "./src/index.html",
+            filename: "./index.html"
+        })
+    ]
+};
